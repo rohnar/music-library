@@ -19,7 +19,7 @@ const router = useRouter()
                 >All [Experiment]</router-link
             >
         </div>
-        <Button v-if="isAuthenticated()" @click="logout(), router.push('/login')">Logout </Button>
+        <Button v-if="isAuthenticated" @click="logout(), router.push('/login')">Logout </Button>
     </div>
 </template>
 <style scoped>

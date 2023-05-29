@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { isAuthenticated } from './composables/useAuth'
+import { checkAuthenticated } from './composables/useAuth'
 import Login from './components/Login.vue'
 import Explore from './components/Explore.vue'
 import Artists from './components/Artists.vue'
@@ -28,7 +28,7 @@ const router = createRouter({
 
 //protect from invalid users by determining authentication status before route change
 router.beforeEach((to, from, next) => {
-    if (!isAuthenticated() && to.name !== 'Login') {
+    if (!checkAuthenticated() && to.name !== 'Login') {
         window.alert('Session has timed out, please log in')
         next({ name: 'Login' })
     } else next()

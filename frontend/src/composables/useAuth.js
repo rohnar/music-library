@@ -1,10 +1,12 @@
 import { ref, computed, onMounted } from 'vue'
 import Cookies from 'js-cookie'
-const isAuthenticated = ()=>{
+const isAuthenticated = ref(false)
+const checkAuthenticated = ()=>{
     //cookies are not reactive so need to use a function
     //this is a very simplified version of a check that would need to be done
     const token = Cookies.get('jwtToken')
-    return !!token
+    isAuthenticated.value = !!token
+    return isAuthenticated.value
 }
 //for prototype only, the request to the server would store a cookie in the clients browser.
 const bearerToken =
@@ -24,4 +26,4 @@ function logout() {
     window.alert('logging out!')
     removeCookie()
 }
-export { getToken, logout, isAuthenticated }
+export { getToken, logout, isAuthenticated, checkAuthenticated }
