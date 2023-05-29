@@ -2,10 +2,9 @@
 import { toRef, computed } from 'vue'
 import Table from './common/Table.vue'
 import Paginator from './common/Paginator.vue'
-import Button from './common/Button.vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getSongs } from './../composables/useFetch.js'
-const router = useRouter()
+import { getAllSongs } from './../composables/useFetch.js'
+const route = useRoute()
 const albumId = computed(() => {
     return props.id
 })
@@ -21,25 +20,22 @@ const props = defineProps({
         default: true
     }
 })
-const { res: songs, options, totalPages, sort: sorter } = getSongs(albumId)
-function search($event) {
-    options.value._page = 1
-    options.value.q = $event.target.value
-}
+const { res: songs, options, totalPages, sort: sorter } = getAllSongs(albumId)
 </script>
 
 <template>
     <div>
-        <h2 v-if="props?.albumName">
-            <Button @click="router.go(-1)">Back</Button>{{ props.albumName }} / Songs
-        </h2>
+        <h4>
+            Showing all data would require changing table rendering and exposing song and artist
+            keys for sorting
+        </h4>
         <div class="table-header">
             <input
                 v-if="searchable"
                 placeholder="Search by name"
                 :value="options.q"
-                @blur="search"
-                @keyup.enter="search"
+                @blur="options.q = $event.target.value"
+                @keyup.enter="options.q = $event.target.value"
             />
             <slot></slot>
             <Paginator
@@ -52,18 +48,13 @@ function search($event) {
         <Table
             :show-active="false"
             @header-click="sorter"
-            :headers="['track', 'name']"
+            :headers="['artist', 'name', 'songs']"
             :data="songs"
         ></Table>
     </div>
 </template>
 
 <style scoped>
-h2 {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
 .table-header {
     width: 100%;
     display: flex;

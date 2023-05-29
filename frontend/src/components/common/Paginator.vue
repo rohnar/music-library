@@ -2,41 +2,39 @@
 import Button from './Button.vue'
 const emit = defineEmits(['next', 'prev'])
 const props = defineProps({
-  pageNumber: {
-    type: Number,
-    required: true
-  },
-  maxPage: {
-    type: Number
-  }
+    pageNumber: {
+        required: true
+    },
+    maxPage: {
+        type: Number
+    }
 })
 function prev() {
-  if (props.pageNumber > 1) {
-    emit('prev')
-  }
+    if (props.pageNumber > 1) {
+        emit('prev')
+    }
 }
 function next() {
-  if (props.pageNumber < props.maxPage) {
-    emit('next')
-  }
+    if (props.pageNumber < props.maxPage) {
+        emit('next')
+    }
 }
 </script>
 <template>
-  <div class="container" v-if="maxPage">
-    <Button @click="prev">Prev</Button>
-    <span>{{ pageNumber }} / {{ maxPage }}</span>
-    <Button @click="next">Next</Button>
-  </div>
+    <div class="container" v-if="maxPage">
+        <Button @click="prev">Prev</Button>
+        <span>{{ pageNumber }} / {{ maxPage }}</span>
+        <Button @click="next">Next</Button>
+    </div>
 </template>
 <style scoped>
 .container {
-  display: flex;
-  justify-content: end;
-  width: 100%;
-  gap: 1rem;
-  margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 1rem;
 }
 .container span {
-  font-weight: bold;
+    font-weight: bold;
 }
 </style>

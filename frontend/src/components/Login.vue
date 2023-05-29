@@ -1,22 +1,20 @@
 <script setup>
 import Button from './common/Button.vue'
 import useFetch from './common/Button.vue'
-
-function getToken() {
-    //simulate sign in request
-    return 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
-}
-function authenticate() {
+import { useRouter, useRoute } from 'vue-router'
+import { getToken } from '../composables/useAuth'
+const router = useRouter()
+function login() {
     //simulate authentication
-    //if token, sign in
-    
+    getToken()
+    router.push('/')
 }
 </script>
 <template>
     <div class="landing">
         <h1>Welcome</h1>
         <p>Discover new tunes today</p>
-        <Button @click="authenticate">Sign in</Button>
+        <Button @click="login">Sign in</Button>
     </div>
 </template>
 <style>
